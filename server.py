@@ -1,28 +1,19 @@
 from flask import Flask, render_template
 
-from models import db, Ads
+from model import db, Ads
 
+ADDS_PER_PAGE = 15
 
 app = Flask(__name__)
 app.config.from_object('config')
 db.init_app(app)
 
-@app.route('/')
-def ads_list():
-    return render_template('ads_list.html', ads=[{
-            "settlement": "Череповец",
-            "under_construction": False,
-            "description": '''Квартира в отличном состоянии. Заезжай и живи!''',
-            "price": 2080000,
-            "oblast_district": "Череповецкий район",
-            "living_area": 17.3,
-            "has_balcony": True,
-            "address": "Юбилейная",
-            "construction_year": 2001,
-            "rooms_number": 2,
-            "premise_area": 43.0,
-        }]*10
-    )
+
+@app.route('/', methods=['GET'])
+def ads_list(page=1):
+    query = Ads.query.filter(Ads.show== True).paginate(page, ADDS_PER_PAGE)
+    return render_template('ads_list.html', ads=query)
+
 
 if __name__ == "__main__":
     app.run()
