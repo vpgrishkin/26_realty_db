@@ -10,6 +10,7 @@ db.init_app(app)
 
 
 @app.route('/', methods=['GET'])
+@app.route('/<int:page>', methods=['GET'])
 def ads_list(page=1):
     query = Ads.query.filter(Ads.show== True).paginate(page, ADDS_PER_PAGE)
     return render_template('ads_list.html', ads=query)
