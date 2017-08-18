@@ -5,9 +5,6 @@ db = SQLAlchemy()
 STANDART_STR_LENGTH = 256
 
 
-
-# TODO: add indexes
-
 class Ads(db.Model):
     __tablename__ = 'ads'
 
@@ -16,15 +13,15 @@ class Ads(db.Model):
     under_construction = db.Column(db.Boolean)
     description = db.Column(db.Text)
     price = db.Column(db.Integer, index=True)
-    oblast_district = db.Column(db.Text)
+    oblast_district = db.Column(db.Text, index=True)
     living_area = db.Column(db.Float)
     has_balcony = db.Column(db.Boolean)
     address = db.Column(db.Text)
-    construction_year = db.Column(db.Integer)
+    construction_year = db.Column(db.Integer, index=True)
     rooms_number = db.Column(db.Integer)
     premise_area = db.Column(db.Float)
 
-    show = db.Column(db.Boolean)
+    show = db.Column(db.Boolean, index=True)
 
 
     def __init__(self,
