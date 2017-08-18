@@ -18,7 +18,7 @@ pip install -r requirements.txt
 ``` #!bash
 
 python manage_db.py -c db
-puthon manage_db.py -j [json_file]
+python manage_db.py -j [json_file]
 ```
 
 ## Run sever
