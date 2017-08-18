@@ -25,7 +25,7 @@ class Ads(db.Model):
 
 
     def __init__(self,
-                 id,
+                 id_ad,
                  settlement,
                  under_construction,
                  description,
@@ -38,7 +38,7 @@ class Ads(db.Model):
                  rooms_number,
                  premise_area,
                  show):
-        self.id = id
+        self.id_ad = id_ad
         self.settlement = settlement
         self.under_construction = under_construction
         self.description = description
