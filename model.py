@@ -8,7 +8,7 @@ STANDART_STR_LENGTH = 256
 class Ads(db.Model):
     __tablename__ = 'ads'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id_ad = db.Column(db.Integer, primary_key=True)
     settlement = db.Column(db.String(STANDART_STR_LENGTH))
     under_construction = db.Column(db.Boolean)
     description = db.Column(db.Text)
