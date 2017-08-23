@@ -21,7 +21,7 @@ class Ads(db.Model):
     rooms_number = db.Column(db.Integer)
     premise_area = db.Column(db.Float)
 
-    show = db.Column(db.Boolean, index=True)
+    is_actual = db.Column(db.Boolean, index=True)
 
 
     def __init__(self,
@@ -37,7 +37,7 @@ class Ads(db.Model):
                  construction_year,
                  rooms_number,
                  premise_area,
-                 show):
+                 is_actual):
         self.id_ad = id_ad
         self.settlement = settlement
         self.under_construction = under_construction
@@ -50,4 +50,4 @@ class Ads(db.Model):
         self.construction_year = construction_year
         self.rooms_number = rooms_number
         self.premise_area = premise_area
-        self.show = show
+        self.is_actual = is_actual

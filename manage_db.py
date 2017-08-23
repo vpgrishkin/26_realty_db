@@ -50,14 +50,14 @@ def update_db(ads):
                         ad['construction_year'],
                         ad['rooms_number'],
                         ad['premise_area'],
-                        show=True)
+                        is_actual=True)
         db.session.add(ads_to_db)
         db.session.commit()
 
 
-def set_show_false_for_all_ads():
+def set_is_actual_false_for_all_ads():
     for ad in Ads.query.all():
-        ad.show = False
+        ad.is_actual = False
         db.session.add(ad)
         db.session.commit()
 
@@ -73,7 +73,7 @@ if __name__ == '__main__':
         json_file = load_file(json_file_path)
         json_data = load_data(json_file)
         with app.app_context():
-            set_show_false_for_all_ads()
+            set_is_actual_false_for_all_ads()
             update_db(json_data)
     else:
         print('No arguments. Try -h')

@@ -15,7 +15,7 @@ db.init_app(app)
 @app.route('/', methods=['GET'])
 @app.route('/<int:page>', methods=['GET'])
 def ads_list(page=1):
-    query = Ads.query.filter(Ads.show== True).paginate(page, ADDS_PER_PAGE)
+    query = Ads.query.filter(Ads.is_actual== True).paginate(page, ADDS_PER_PAGE)
     return render_template('ads_list.html', ads=query)
 
 
@@ -27,7 +27,7 @@ def search(page=1):
     max_price = request.args.get('max_price', default=None, type=int)
     new_building = request.args.get('new_building', default=None, type=bool)
 
-    ads_query = Ads.query.filter_by(show=True)
+    ads_query = Ads.query.filter_by(is_actual=True)
     if oblast_district:
         ads_query = ads_query.filter_by(oblast_district=oblast_district)
     if min_price:
