@@ -1,6 +1,7 @@
 import os
 import argparse
 import json
+import sys
 
 from flask import Flask
 
@@ -15,7 +16,6 @@ db.init_app(app)
 def load_file(filepath):
     if os.path.exists(filepath):
         return open(filepath, 'r', encoding='utf-8')
-    print('No file: {}'.format(filepath))
 
 
 def load_data(json_file):
@@ -36,7 +36,7 @@ def create_db():
         db.create_all()
 
 
-def update_db(ads):
+def update_db_session(ads):
     for ad in ads:
         ads_to_db = Ads(ad['id'], 
                         ad['settlement'], 
@@ -52,14 +52,12 @@ def update_db(ads):
                         ad['premise_area'],
                         is_actual=True)
         db.session.add(ads_to_db)
-        db.session.commit()
 
 
-def set_is_actual_false_for_all_ads():
+def set_is_actual_false_for_all_ads_in_session():
     for ad in Ads.query.all():
         ad.is_actual = False
         db.session.add(ad)
-        db.session.commit()
 
 
 if __name__ == '__main__':
@@ -71,10 +69,14 @@ if __name__ == '__main__':
         print('Try update db from {}'.format(args.json_file))
         json_file_path = args.json_file
         json_file = load_file(json_file_path)
+        if json_file is None:
+            print('No file: {}'.format(json_file_path))
+            sys.exit(1)
         json_data = load_data(json_file)
         with app.app_context():
-            set_is_actual_false_for_all_ads()
-            update_db(json_data)
+            set_is_actual_false_for_all_ads_in_session()
+            update_db_session(json_data)
+            db.session.commit()
     else:
         print('No arguments. Try -h')
 
